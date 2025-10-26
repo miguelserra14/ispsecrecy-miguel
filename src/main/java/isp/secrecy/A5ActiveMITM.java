@@ -93,6 +93,27 @@ public class A5ActiveMITM {
                 // so that the FMTP server will send the email to you
                 // (Needless to say, you are not allowed to use the key
                 // that is being used by david and server.)
+                // original recipient email (first line) and target email (second line)
+                final String originalRecipient = "prf.denis@fri.si";
+                final String targetRecipient = "isp@gmail.com   "; //spaces to match length
+
+                // Convert to bytes
+                final byte[] originalBytes = originalRecipient.getBytes(StandardCharsets.UTF_8);
+                final byte[] targetBytes = targetRecipient.getBytes(StandardCharsets.UTF_8);
+
+                // copy of the ct to modify
+                final byte[] modifiedBytes = bytes.clone();
+
+                // Perform bit-flipping attack on the first line (recipient)
+                // XOR the ciphertext to change plaintext
+                for (int i = 0; i < originalBytes.length && i < targetBytes.length; i++) {
+                    // transforming the plaintext from original to target
+                    modifiedBytes[i] ^= originalBytes[i] ^ targetBytes[i];
+                }
+
+                print("OUT: %s", hex(modifiedBytes));
+                send("server", modifiedBytes);
+                send("server", iv);
 
                 print("OUT: %s", hex(bytes));
                 send("server", bytes);
