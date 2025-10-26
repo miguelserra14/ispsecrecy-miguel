@@ -8,11 +8,14 @@ import java.security.Key;
 
 /**
  * TASK:
+ * ver os files de agent communicatione symmetric cypher e ver como se encaixam no projeto e como funcionam
+ * dps de ter isso sabido ver como e que este se encaixa e resolve lo 
+ * ler a documentação e todos os links anexados nos files
+ * 
  * Assuming Alice and Bob know a shared secret key in advance, secure the channel using
  * AES in CBC mode. Then exchange ten messages between Alice and Bob.
  * <p>
  * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/crypto/Cipher.html
- * LER ESTA DOCUMENTAÇÃO
  */
 public class A1AESInCBCMode {
     public static void main(String[] args) throws Exception {
