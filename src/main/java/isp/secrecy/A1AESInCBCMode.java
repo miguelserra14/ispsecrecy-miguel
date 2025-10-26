@@ -8,14 +8,14 @@ import java.security.Key;
 
 /**
  * TASK:
- * ver os files de agent communicatione symmetric cypher e ver como se encaixam no projeto e como funcionam
- * dps de ter isso sabido ver como e que este se encaixa e resolve lo 
- * ler a documentação e todos os links anexados nos files
+ * ver os files de agent communicatione symmetric cypher e ver como se encaixam no projeto e como funcionam (done)
+ * dps de ter isso sabido ver como e que este se encaixa e resolve lo  (done)
+ * ler a documentação e todos os links anexados nos files (done)
  * 
  * Assuming Alice and Bob know a shared secret key in advance, secure the channel using
  * AES in CBC mode. Then exchange ten messages between Alice and Bob.
  * <p>
- * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/crypto/Cipher.html
+ * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/crypto/Cipher.html (hev read. got the necessarymthods and how to use them)
  */
 public class A1AESInCBCMode {
     public static void main(String[] args) throws Exception {
@@ -34,14 +34,10 @@ public class A1AESInCBCMode {
                 /* TODO STEP 3:
                  * Alice creates, encrypts and sends a message to Bob. Bob replies to the message.
                  * Such exchange repeats 10 times.
-                 *
-                 * Do not forget: In CBC (and CTR mode), you have to also
-                 * send the IV. The IV can be accessed via the
-                 * cipher.getIV() call
-                 
+                 */
                 for (int i = 0; i < 10; i++) {
-                    // prepare cipher for encryption (new IV is generated on init)
-                    final javax.crypto.Cipher enc = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5Padding (128)");
+                    // preparaation of cypher for encryption (new IV generation on init)
+                    final javax.crypto.Cipher enc = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5Padding");
                     enc.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
 
                     final String outMsg = message;
@@ -65,7 +61,7 @@ public class A1AESInCBCMode {
                     final byte[] replyPt = dec.doFinal(replyCt);
 
                     System.out.println("alice received: " + new String(replyPt));
-                }*/
+                }
                 
             }
         });
@@ -75,14 +71,8 @@ public class A1AESInCBCMode {
             public void task() throws Exception {
                 /* TODO STEP 4
                  * Bob receives, decrypts and displays a message.
-                 * Once you obtain the byte[] representation of cipher parameters,
-                 * you can load them with:
-                 *
-                 *   IvParameterSpec ivSpec = new IvParameterSpec(iv);
-                 *   aes.init(Cipher.DECRYPT_MODE, my_key, ivSpec);
-                 *
-                 * You then pass this object to the cipher init() method call.*
-                 * for (int i = 0; i < 10; i++) {
+                 */
+                  for (int i = 0; i < 10; i++) {
                     // receive IV then ciphertext from Alice
                     final byte[] iv = (byte[]) receive("alice");
                     final byte[] ct = (byte[]) receive("alice");
@@ -110,7 +100,7 @@ public class A1AESInCBCMode {
                     System.out.println("bob -> alice (ciphertext, base64): " +
                             java.util.Base64.getEncoder().encodeToString(replyCt));
                 }
-                 */
+                 
             }
         });
 
